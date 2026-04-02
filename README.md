@@ -1,4 +1,3 @@
-[readme (5).md](https://github.com/user-attachments/files/26426269/readme.5.md)
 # 🎵 Music Recommender Simulation
 
 ## Project Summary
