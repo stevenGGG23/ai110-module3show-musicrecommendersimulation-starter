@@ -71,9 +71,11 @@ def load_songs(csv_path: str) -> List[Dict]:
             songs.append(song)
     return songs
 
-def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
+def score_song(user_prefs, song) -> Tuple[float, List[str]]:
     """
     Score a single song based on user preferences.
+    
+    Handles both Song dataclass objects and dictionaries for flexibility.
     
     Returns:
         Tuple of (score: float, reasons: list of explanation strings)
@@ -81,25 +83,47 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     score = 0.0
     reasons = []
     
+    # Handle both Song objects and dictionaries
+    if isinstance(song, Song):
+        song_dict = {
+            'genre': song.genre,
+            'mood': song.mood,
+            'energy': song.energy,
+            'acousticness': song.acousticness,
+        }
+    else:
+        song_dict = song
+    
+    # Handle both UserProfile objects and dictionaries
+    if isinstance(user_prefs, UserProfile):
+        prefs_dict = {
+            'genre': user_prefs.favorite_genre,
+            'mood': user_prefs.favorite_mood,
+            'energy': user_prefs.target_energy,
+            'likes_acoustic': user_prefs.likes_acoustic,
+        }
+    else:
+        prefs_dict = user_prefs
+    
     # 1. Genre match (strongest signal)
-    if song['genre'].lower() == user_prefs['genre'].lower():
+    if song_dict['genre'].lower() == prefs_dict['genre'].lower():
         score += 2.0
         reasons.append("genre match (+2.0)")
     
     # 2. Mood match (strong signal)
-    if song['mood'].lower() == user_prefs['mood'].lower():
+    if song_dict['mood'].lower() == prefs_dict['mood'].lower():
         score += 1.5
         reasons.append("mood match (+1.5)")
     
     # 3. Energy compatibility (numerical similarity)
-    energy_diff = abs(song['energy'] - user_prefs['energy'])
+    energy_diff = abs(song_dict['energy'] - prefs_dict['energy'])
     energy_score = 1.5 * (1.0 - energy_diff)
     if energy_score > 0:
         score += energy_score
         reasons.append(f"energy compatibility (+{energy_score:.2f})")
     
     # 4. Optional acoustic bonus
-    if user_prefs.get('likes_acoustic', False) and song['acousticness'] > 0.75:
+    if prefs_dict.get('likes_acoustic', False) and song_dict['acousticness'] > 0.75:
         score += 0.5
         reasons.append("acoustic bonus (+0.5)")
     
