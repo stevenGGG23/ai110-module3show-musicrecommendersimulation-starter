@@ -72,14 +72,7 @@ def load_songs(csv_path: str) -> List[Dict]:
     return songs
 
 def score_song(user_prefs, song) -> Tuple[float, List[str]]:
-    """
-    Score a single song based on user preferences.
-    
-    Handles both Song dataclass objects and dictionaries for flexibility.
-    
-    Returns:
-        Tuple of (score: float, reasons: list of explanation strings)
-    """
+    """Score a song based on user preferences and return score with explanation reasons."""
     score = 0.0
     reasons = []
     
