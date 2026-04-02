@@ -100,8 +100,7 @@ python -m pytest tests/test_recommender.py -v
 
 **Test Output:**
 
-![Test Results](screenshots/Screenshot%202026-04-01%20at%209.40.24%20PM.png)
-
+![Test Results](screenshots/test-results.png)
 ---
 
 ## Experiments You Tried
