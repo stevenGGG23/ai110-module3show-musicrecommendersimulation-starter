@@ -110,7 +110,8 @@ python -m pytest tests/test_recommender.py -v
 
 **Test Output:**
 
-![Test Results](screenshots/Screenshot%202026-04-01%20at%209.40.24%20PM.png)
+![Test Results](<screenshots/Screenshot 2026-04-01 at 9.40.24 PM.png>)
+
 
 All tests pass successfully! You can add more tests in `tests/test_recommender.py`.
 
