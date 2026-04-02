@@ -105,10 +105,14 @@ python -m src.main
 Run the starter tests with:
 
 ```bash
-pytest
+python -m pytest tests/test_recommender.py -v
 ```
 
-You can add more tests in `tests/test_recommender.py`.
+**Test Output:**
+
+![Test Results](screenshots/Screenshot%202026-04-01%20at%209.40.24%20PM.png)
+
+All tests pass successfully! You can add more tests in `tests/test_recommender.py`.
 
 ---
 
